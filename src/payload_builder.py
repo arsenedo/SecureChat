@@ -7,22 +7,22 @@ class PayloadBuilder:
 
     def __init__(self, bytes_per_char: int):
         self.bytes_per_char = bytes_per_char
-        print(self.header)
 
     def create(
             self, 
             type: PayloadType, 
             message: str, 
             ):
-        length = (len(message) * self.bytes_per_char).to_bytes(self.length_field_size)
+        length = int.to_bytes(len(message), 2, "big")
+
         encoded_message = message.encode(self.message_encoding)
         
         return Payload(self.header, type.value, length, encoded_message)
     
-    def parse(payload_bytes: bytes):
+    def parse(self, payload_bytes):
         header = payload_bytes[0:3]
         msg_type = payload_bytes[3:4]
-        msg_length = payload_bytes[4:6]
+        msg_length = int.from_bytes(payload_bytes[4:6], "big") * self.bytes_per_char
         msg = payload_bytes[6: 6 + msg_length]
 
         return Payload(
