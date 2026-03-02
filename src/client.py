@@ -14,7 +14,6 @@ class Client:
 
     def send(self, message: str, msg_type: PayloadType):
         payload: Payload = self.payload_builder.create(msg_type, message)
-
         self.s.send(payload.to_byte_string())
 
     def receive(self, timeout: int = 0.001):

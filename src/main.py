@@ -13,7 +13,7 @@ def main():
 
     payload = c.receive(1)
 
-    print(payload.message.decode("utf-32-be"))
+    print(payload.message.decode("utf-8"))
 
     c.close()
 

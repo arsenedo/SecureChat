@@ -3,7 +3,7 @@ from payload import *
 class PayloadBuilder:
     header = b"ISC"
     length_field_size = 2
-    message_encoding = "utf-32-be"
+    message_encoding = "utf-8"
 
     def __init__(self, bytes_per_char: int):
         self.bytes_per_char = bytes_per_char
@@ -15,7 +15,7 @@ class PayloadBuilder:
             ):
         length = int.to_bytes(len(message), 2, "big")
 
-        encoded_message = message.encode(self.message_encoding)
+        encoded_message = self.encode_message(message)
         
         return Payload(self.header, type.value, length, encoded_message)
     
@@ -31,3 +31,16 @@ class PayloadBuilder:
             msg_length, 
             msg
         )
+    
+    def encode_message(self, string: str):
+        padding = int.to_bytes(0, 1, "big")
+
+        bytes_message = bytes()
+
+        for char in string:
+            encoded_char = char.encode(self.message_encoding)
+            bytes_message += padding * (self.bytes_per_char - len(encoded_char))
+            bytes_message += encoded_char
+
+
+        return bytes_message
