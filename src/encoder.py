@@ -1,6 +1,6 @@
-def caesar_shift(word: str, shift: int):
+def caesar_shift(string: str, shift: int):
     result = ""
-    for char in word:
+    for char in string:
         if not char.isalpha():
             result += char
             continue
@@ -13,3 +13,22 @@ def caesar_shift(word: str, shift: int):
         result += shifted
 
     return result
+
+def xor(string, key):
+    lengthMultiple = len(string) // len(key) + 1
+    lenAdjustedKey = (key * lengthMultiple)[:len(string)]
+
+    stringBytes = bytes(string, "utf-8")
+    keyBytes = bytes(lenAdjustedKey, "utf-8")
+    
+    encodeTuple = zip(stringBytes, keyBytes)
+    
+    xorArray = []
+    for pair in encodeTuple:
+        xor = pair[0] ^ pair[1]
+
+        xorArray.append(xor)
+    
+    xorBytes = bytes(xorArray)
+
+    return xorBytes
