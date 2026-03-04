@@ -1,17 +1,9 @@
 def caesar_shift(string: str, shift: int):
     result = ""
     for char in string:
-        if not char.isalpha():
-            result += char
-            continue
-
-        normalizationShift = ord("a") if char.islower() else ord("A")
-        
-        normalizedShifted = (ord(char) - normalizationShift + shift) % 26
-        shifted = chr(normalizedShifted + normalizationShift)
+        shifted = chr(ord(char) + shift)
 
         result += shifted
-
     return result
 
 def xor(string, key):

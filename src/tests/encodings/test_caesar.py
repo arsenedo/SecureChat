@@ -1,25 +1,43 @@
-import encoder
+from encoder import caesar_shift
+import pytest
 
-def test_encode_word():
-    word = "hello"
-    shift = 5
+# TODO CHANGE TEXT
+@pytest.mark.parametrize(
+    "message, n, expected",
+    [
+        (
+            "Hello, World!",
+            10,
+            "Rovvy6*ay|vn+",
+        ),
+        (
+            "ꯂ Perspectives critiques 믂, 5 f꧃vrier 2020",
+            10,
+            "ꯌ*Zo|}zom~s\u0080o}*m|s~s{\u007fo}*믌6*?*p꧍\u0080|so|*<:<:",
+        ),
+    ],
+)
+def test_encrypt(message: str, n: int, expected: str):
+    result = caesar_shift(message, n)
 
-    assert encoder.caesar_shift(word, shift) == "mjqqt"
+    assert result == expected
 
-def test_encode_phrase():
-    string = "Mi bomboclat I'm THE Caesar"
-    shift = 10
+@pytest.mark.parametrize(
+    "message, n, expected",
+    [
+        (
+            "Rovvy6*ay|vn+",
+            10,
+            "Hello, World!",
+        ),
+        (
+            "ꯌ*Zo|}zom~s\u0080o}*m|s~s{\u007fo}*믌6*?*p꧍\u0080|so|*<:<:",
+            10,
+            "ꯂ Perspectives critiques 믂, 5 f꧃vrier 2020",
+        ),
+    ],
+)
+def test_decrypt(message: str, n: int, expected: str):
+    result = caesar_shift(message, -n)
 
-    assert encoder.caesar_shift(string, shift) == "Ws lywlymvkd S'w DRO Mkockb"
-
-def test_decode_word():
-    encoded_word = "mjqqt"
-    shift  = -5
-
-    assert encoder.caesar_shift(encoded_word, shift) == "hello"
-
-def test_decode_phrase():
-    encoded_phrase = "Ws lywlymvkd S'w DRO Mkockb"
-    shift = -10
-
-    assert encoder.caesar_shift(encoded_phrase, shift) == "Mi bomboclat I'm THE Caesar"
+    assert result == expected
