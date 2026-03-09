@@ -11,7 +11,7 @@ def main():
 
     c.send("pipi", PayloadType.TEXT)
 
-    payload = c.receive(1)
+    payload = c.receive()
 
     print(payload.message.decode("utf-8"))
 

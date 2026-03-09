@@ -16,8 +16,7 @@ class Client:
         payload: Payload = self.payload_builder.create(msg_type, message)
         self.s.send(payload.to_byte_string())
 
-    def receive(self, timeout: int = 0.001):
-        self.s.settimeout(timeout)
+    def receive(self):
         payload_bytes = self.s.recv(4096)
 
         payload: Payload = self.payload_builder.parse(payload_bytes)
