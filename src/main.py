@@ -1,7 +1,7 @@
 import client
 from payload import PayloadType
 from threading import Thread
-from cli_manager import CLIManager, CLICommand
+from cli_manager import CLIManager
 
 
 IP_address = "vlbelintrocrypto.hevs.ch"
