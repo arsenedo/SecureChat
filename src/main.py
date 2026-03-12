@@ -1,7 +1,7 @@
 import client
 from payload import PayloadType
 from threading import Thread
-from cli_manager import CLIManager
+from cli import cli_handler
 
 
 IP_address = "vlbelintrocrypto.hevs.ch"
@@ -13,8 +13,9 @@ def listen_to_server(c: client.Client):
         print(payload.message.decode("utf-8"))
 
 def main():
-    cli_manager = CLIManager()
     c = client.Client()
+
+    cli = cli_handler.CLIHandler()
 
     print(f"[+] Connecting to {IP_address}:{port}")
     c.connect(IP_address, port)
@@ -23,7 +24,6 @@ def main():
 
     thread = Thread(target = listen_to_server, kwargs = {"c": c})
 
-    cli_manager.print_available_commands()
     thread.start()
 
     return

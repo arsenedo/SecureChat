@@ -49,6 +49,7 @@ Port: 6000
 
 
 # Diagrams
+## TCP Client and payload Building
 ```mermaid
 ---
 config:
@@ -81,4 +82,56 @@ direction TB
     }
 
     Client --> PayloadBuilder
+```
+
+## CLI MVC and Command Pattern
+The command pattern is used because this app will have a CLI and a GUI. Both do the exact same thing so we need to centralize the logic inside of commands
+```mermaid
+---
+config:
+  layout: dagre
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+direction BT
+    class Main {
+    }
+
+    class CommandInvoker {
+	    - command: Command
+	    + set_command(command: Command)
+	    + execute_command()
+    }
+
+    class Command {
+    }
+
+    class CLIHandler {
+	    + get_cli_commands() list[CLICommands]
+    }
+
+    class CLIView {
+	    + print_header()
+	    + print_available_commands(cli_commands: list[CLICommand])
+    }
+
+    class CLIModel {
+	    - cli_view: CLIView
+	    - command_invoker: CommandInvoker
+	    + CLIModel(command_invoker: CommandInvoker)
+	    + set_cli_commands(cli_commands: list[CLICommand])
+    }
+
+    class CLIController {
+	    - cli_model: CLIModel
+    }
+
+    CLIHandler --> CLIController
+    Main --> CLIHandler
+    Main --> CommandInvoker
+    CLIModel --> CommandInvoker
+    CLIController --> CLIModel
+    CLIModel --> CLIView
+    CommandInvoker --> Command
 ```
