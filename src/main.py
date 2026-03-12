@@ -26,6 +26,7 @@ def main():
 
     thread.start()
 
+    cli.execute_cli_command("/help")
     return
     while True:
         user_input: str = input()

@@ -8,8 +8,11 @@ class CLIHandler:
         model = cli_model.CLIModel(view)
         model.set_cli_commands(self.get_cli_commands())
 
-        controller = cli_controller.CLIController(model)
+        self.controller = cli_controller.CLIController(model)
 
+    def execute_cli_command(self, command: str):
+        self.controller.parse_cli_command(command)
+        
     def get_cli_commands(self):
         return [
             CLICommand(["help"])

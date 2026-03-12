@@ -9,3 +9,6 @@ class CLIModel:
 
     def set_cli_commands(self, commands: list[CLICommand]):
         commands = commands
+
+    def execute_parsed_command(self, parsed_command):
+        pass
