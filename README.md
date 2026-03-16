@@ -86,6 +86,8 @@ direction TB
 
 ## CLI MVC and Command Pattern
 The command pattern is used because this app will have a CLI and a GUI. Both do the exact same thing so we need to centralize the logic inside of commands
+
+The MVC pattern was simplified to a MV and a base handler which parses the command and passes the parsed information to the model. Which in turns executes the desired command
 ```mermaid
 ---
 config:
@@ -108,7 +110,8 @@ direction BT
     }
 
     class CLIHandler {
-	    + get_cli_commands() list[CLICommands]
+        - cli_model: CLIModel
+        + execute_cli_command(cli_command: str)
     }
 
     class CLIView {
@@ -120,18 +123,13 @@ direction BT
 	    - cli_view: CLIView
 	    - command_invoker: CommandInvoker
 	    + CLIModel(command_invoker: CommandInvoker)
-	    + set_cli_commands(cli_commands: list[CLICommand])
+        + get_available_commands() list[CLICommand]
     }
 
-    class CLIController {
-	    - cli_model: CLIModel
-    }
-
-    CLIHandler --> CLIController
+    CLIHandler --> CLIModel
     Main --> CLIHandler
     Main --> CommandInvoker
     CLIModel --> CommandInvoker
-    CLIController --> CLIModel
     CLIModel --> CLIView
     CommandInvoker --> Command
 ```
