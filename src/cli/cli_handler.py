@@ -12,4 +12,4 @@ class CLIHandler:
     def execute_cli_command(self, command: str):
         parsed_command: cli_command.ParsedCLICommand = cli_utils.parse_cli_command(command)
 
-        self.model.execute_parsed_command(parsed_command.command)
+        self.model.execute_parsed_command(parsed_command)

@@ -3,8 +3,8 @@ class CLICommand:
         self.aliases = aliases
         self.callback = callback
 
-    def execute(self, msg):
-        self.callback(msg)
+    def execute(self, flags = None, user_input = None):
+        self.callback(flags, user_input)
         
     def to_string(self):
         str_aliases = ", ".join(f"/{alias}" for alias in self.aliases)
