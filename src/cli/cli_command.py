@@ -10,3 +10,9 @@ class CLICommand:
         str_aliases = ", ".join(f"/{alias}" for alias in self.aliases)
 
         return str_aliases
+    
+class ParsedCLICommand:
+    def __init__(self, command: str, flag: str = None, user_input: str = None):
+        self.command = command
+        self.flag = flag
+        self.user_input = user_input

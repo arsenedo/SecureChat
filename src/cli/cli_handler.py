@@ -1,5 +1,6 @@
-from cli import cli_model, cli_view
+from cli import cli_model, cli_view, cli_command
 from commands.command_invoker import CommandInvoker
+import utils.cli_utils as cli_utils
 import re
 
 class CLIHandler:
@@ -9,11 +10,6 @@ class CLIHandler:
         self.model = cli_model.CLIModel(view, command_invoker)
 
     def execute_cli_command(self, command: str):
-        parsed_command = self._parse_cli_command(command)
+        parsed_command: cli_command.ParsedCLICommand = cli_utils.parse_cli_command(command)
 
-        self.model.execute_parsed_command(parsed_command)
-
-    def _parse_cli_command(self, cli_command: str):
-        found_command = re.search("\/(\w+)", cli_command)
-
-        return found_command.group(1) if found_command else "unknown_command"
+        self.model.execute_parsed_command(parsed_command.command)
