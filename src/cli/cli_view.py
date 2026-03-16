@@ -10,8 +10,14 @@ class CLIView:
         print(header)
 
     def print_available_commands(self, commands: CLICommand):
+        title = """
+===================================================
+\tAVAILABLE COMMANDS
+==================================================="""
+        print(title)
         for command in commands:
-            print(command.to_string())
+            print(f"{command.to_string()}")
+        print("")
 
     def print_string(self, string: str):
         print(string)
