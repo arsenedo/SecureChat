@@ -1,12 +1,12 @@
 from cli import cli_model, cli_view
-from cli.cli_command import CLICommand
+from commands.command_invoker import CommandInvoker
 import re
 
 class CLIHandler:
-    def __init__(self):
+    def __init__(self, command_invoker: CommandInvoker):
         view = cli_view.CLIView()
 
-        self.model = cli_model.CLIModel(view)
+        self.model = cli_model.CLIModel(view, command_invoker)
 
     def execute_cli_command(self, command: str):
         parsed_command = self._parse_cli_command(command)

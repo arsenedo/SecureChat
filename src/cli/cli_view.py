@@ -14,10 +14,14 @@ class CLIView:
 ===================================================
 \tAVAILABLE COMMANDS
 ==================================================="""
+
+        footer = """===================================================
+"""
+
         print(title)
         for command in commands:
             print(f"{command.to_string()}")
-        print("")
+        print(footer)
 
     def print_string(self, string: str):
         print(string)
