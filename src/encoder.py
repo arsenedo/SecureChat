@@ -1,4 +1,4 @@
-import utils
+import utils.array_utils as array_utils
 
 def caesar_shift(string: str, shift: int):
     result = ""
@@ -9,7 +9,7 @@ def caesar_shift(string: str, shift: int):
     return result
 
 def xor(string, key):
-    len_adjusted_key = utils.adjust_key_length(key, len(string))
+    len_adjusted_key = array_utils.adjust_key_length(key, len(string))
 
     stringBytes = bytes(string, "utf-8")
     keyBytes = bytes(len_adjusted_key, "utf-8")
@@ -27,7 +27,7 @@ def xor(string, key):
     return xorBytes
 
 def vigenere_encode(string: str, key_string: str):
-    len_adjusted_key = utils.adjust_key_length(key_string, len(string))
+    len_adjusted_key = array_utils.adjust_key_length(key_string, len(string))
 
     string_chars = list(string)
     key_string_chars = list(len_adjusted_key)
@@ -44,7 +44,7 @@ def vigenere_encode(string: str, key_string: str):
     return encrypted_string
 
 def vigenere_decode(encoded_msg: str, key_string: str):
-    len_adjusted_key = utils.adjust_key_length(key_string, len(encoded_msg))
+    len_adjusted_key = array_utils.adjust_key_length(key_string, len(encoded_msg))
 
     msg_chars = list(encoded_msg)
     key_string_chars = list(len_adjusted_key)
