@@ -2,6 +2,7 @@ import client
 from payload import PayloadType
 from threading import Thread
 from cli import cli_handler
+from commands.command_invoker import CommandInvoker
 
 
 IP_address = "vlbelintrocrypto.hevs.ch"
@@ -15,7 +16,9 @@ def listen_to_server(c: client.Client):
 def main():
     c = client.Client()
 
-    cli = cli_handler.CLIHandler()
+    command_invoker = CommandInvoker(c)
+
+    cli = cli_handler.CLIHandler(command_invoker)
 
     print(f"[+] Connecting to {IP_address}:{port}")
     c.connect(IP_address, port)
