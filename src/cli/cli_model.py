@@ -6,6 +6,7 @@ from commands.send_text_command import *
 from commands.select_message_to_buffer import *
 from commands.set_message_to_buffer import *
 from commands.show_current_buffers import *
+from commands.caesar_shift_command import *
 import os
 
 
@@ -54,6 +55,11 @@ class CLIModel:
             CLICommand(
                 aliases = ["show"],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(ShowCurrentBuffers(self.cli_view))
+            ),
+            CLICommand(
+                aliases = ["encode"],
+                input_options = [InputOptionsList(["shift"]), InputOptionsList(["k"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(CaesarShiftCommand(user_input, True))
             )
         ]
     

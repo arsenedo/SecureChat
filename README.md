@@ -53,6 +53,11 @@ Port: 6000
 * The user input can have multiple fields and each field might contain multiple options.
 * The fields might be optional
 
+## CLI encode
+* Encode allows to encode using multiple encoding algorithms
+* All start with encode. current parser finds command by alias
+* Create A CLI Command?
+
 # Diagrams
 ## TCP Client and payload Building
 ```mermaid
