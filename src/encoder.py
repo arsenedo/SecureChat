@@ -11,10 +11,10 @@ class Encoder:
         self.encoded_buffer = ""
 
     def set_plain_buffer(self, text: str):
-        self.plain_buffer += text
+        self.plain_buffer = text
 
     def set_encoded_buffer(self, text: str):
-        self.encoded_buffer += text
+        self.encoded_buffer = text
 
     def encode_shift(self, shift: int):
         self.encoded_buffer = caesar_shift(self.plain_buffer, shift)

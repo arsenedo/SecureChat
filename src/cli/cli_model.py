@@ -4,7 +4,10 @@ from payload import PayloadType
 from commands.command_invoker import CommandInvoker, ICommand
 from commands.send_text_command import *
 from commands.select_message_to_buffer import *
+from commands.set_message_to_buffer import *
+from commands.show_current_buffers import *
 import os
+
 
 class CLIModel:
     def __init__(self, view: CLIView, command_invoker: CommandInvoker):
@@ -34,14 +37,23 @@ class CLIModel:
             ),
             CLICommand(
                 aliases = ["send"],
-                input_options = ["text", "plain", "encoded"],
+                input_options = [InputOptionsList(["text", "plain", "encoded"])],
                 flags = ["s"],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(SendTextCommand(user_input, flag))
             ),
             CLICommand(
                 aliases = ["select"],
-                input_options = ["i"],
+                input_options = [InputOptionsList(["i"]), InputOptionsList(["e", "c"], True)],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(SelectMessageToBuffer(user_input))
+            ),
+            CLICommand(
+                aliases = ["set"],
+                input_options = [InputOptionsList(["plain", "encoded"]), InputOptionsList(["text"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(SetMessageToBuffer(user_input))
+            ),
+            CLICommand(
+                aliases = ["show"],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(ShowCurrentBuffers(self.cli_view))
             )
         ]
     
