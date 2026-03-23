@@ -1,5 +1,27 @@
 import utils.array_utils as array_utils
 
+class Encoder:
+    plain_buffer = ""
+    encoded_buffer = ""
+
+    def clear_plain_buffer(self):
+        self.plain_buffer = ""
+
+    def clear_encoded_buffer(self):
+        self.encoded_buffer = ""
+
+    def set_plain_buffer(self, text: str):
+        self.plain_buffer += text
+
+    def set_encoded_buffer(self, text: str):
+        self.encoded_buffer += text
+
+    def encode_shift(self, shift: int):
+        self.encoded_buffer = caesar_shift(self.plain_buffer, shift)
+    
+    def decode_shift(self, shift: int):
+        self.plain_buffer = caesar_shift(self.encoded_buffer, -shift)
+
 def caesar_shift(string: str, shift: int):
     result = ""
     for char in string:
