@@ -1,6 +1,7 @@
 import pytest
 import utils.cli_utils as cli_utils
 from cli.cli_command import ParsedCLICommand
+from payload import PayloadType
 
 @pytest.mark.parametrize(
         "command, expected",
@@ -10,16 +11,16 @@ from cli.cli_command import ParsedCLICommand
                 ["help", None, None]
             ),
             (
-                "/help -r",
-                ["help", "r", None]
+                "/help -s",
+                ["help", PayloadType.SERVER_TEXT, None]
             ),
             (
-                "/help -r I dont understand anything bro!!! T_T",
-                ["help", "r", "I dont understand anything bro!!! T_T"]
+                "/help -s I dont understand anything bro!!! T_T",
+                ["help", PayloadType.SERVER_TEXT, "I dont understand anything bro!!! T_T"]
             ),
             (
                 "What a beautiful text i'm sending!",
-                ["send", None, "What a beautiful text i'm sending!"]
+                ["send", PayloadType.TEXT, "What a beautiful text i'm sending!"]
             )
         ]
 )

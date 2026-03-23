@@ -3,6 +3,7 @@ from cli.cli_command import *
 from payload import PayloadType
 from commands.command_invoker import CommandInvoker, ICommand
 from commands.send_text_command import *
+from commands.select_message_to_buffer import *
 import os
 
 class CLIModel:
@@ -16,7 +17,7 @@ class CLIModel:
         command = next((cli_command for cli_command in self.get_cli_commands() if parsed_command.command in cli_command.aliases), None)
 
         if not command:
-            self.cli_view.print_string(f"Command {parsed_command} not found")
+            self.cli_view.print_string(f"Command {parsed_command.command} not found")
             return
 
         command.execute(parsed_command.flag, parsed_command.user_input)
@@ -36,6 +37,11 @@ class CLIModel:
                 input_options = ["text", "plain", "encoded"],
                 flags = ["s"],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(SendTextCommand(user_input, flag))
+            ),
+            CLICommand(
+                aliases = ["select"],
+                input_options = ["i"],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(SelectMessageToBuffer(user_input))
             )
         ]
     

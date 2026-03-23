@@ -1,5 +1,6 @@
 import client
 from payload import PayloadType
+from encoder import Encoder
 from threading import Thread
 from cli import cli_handler
 from commands.command_invoker import CommandInvoker
@@ -16,7 +17,9 @@ def listen_to_server(c: client.Client):
 def main():
     c = client.Client()
 
-    command_invoker = CommandInvoker(c)
+    encoder = Encoder()
+
+    command_invoker = CommandInvoker(c, encoder)
 
     cli = cli_handler.CLIHandler(command_invoker)
 
