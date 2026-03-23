@@ -5,6 +5,8 @@ from payload import *
 class Client:
     s: socket.socket = None
     payload_builder: PayloadBuilder = None
+    payload_history: list[Payload] = []
+
     def __init__(self, bytes_per_char = 4):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.payload_builder = PayloadBuilder(bytes_per_char)
@@ -20,6 +22,8 @@ class Client:
         payload_bytes = self.s.recv(4096)
 
         payload: Payload = self.payload_builder.parse(payload_bytes)
+
+        self.payload_history.append(payload)
 
         return payload
 

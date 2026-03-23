@@ -48,6 +48,11 @@ Port: 6000
         * Each pixel consists of 3 consecutive bytes(RGB-RGB-RGB)
 
 
+# Implementation Notes
+## CLI user input
+* The user input can have multiple fields and each field might contain multiple options.
+* The fields might be optional
+
 # Diagrams
 ## TCP Client and payload Building
 ```mermaid
