@@ -33,7 +33,9 @@ class CLIModel:
             ),
             CLICommand(
                 aliases = ["send"],
-                callback = lambda flag, user_input : self.set_and_execute_invoker(SendTextCommand(user_input, PayloadType.TEXT if not flag else PayloadType.SERVER_TEXT))
+                input_options = ["text", "plain", "encoded"],
+                flags = ["s"],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(SendTextCommand(user_input, flag))
             )
         ]
     
