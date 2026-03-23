@@ -58,7 +58,6 @@ def vigenere_encode(string: str, key_string: str):
 
     encrypted_string = ""
     for char, key in encode_tuple:
-        print(ord(char) + ord(key), end=" ")
         encrypted_bytes = (ord(char) + ord(key))
 
         encrypted_string += chr(encrypted_bytes)
@@ -75,7 +74,6 @@ def vigenere_decode(encoded_msg: str, key_string: str):
 
     decrypted_string = ""
     for char, key in decode_tuple:
-        print(char, key)
         decrypted_bytes = ord(char) - ord(key)
 
         decrypted_string += chr(decrypted_bytes)

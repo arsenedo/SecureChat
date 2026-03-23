@@ -18,5 +18,3 @@ class SetMessageToBuffer(ICommand):
                 encoder.set_plain_buffer(self.message)
             case "encoded":
                 encoder.set_encoded_buffer(self.message)
-
-        print(encoder.plain_buffer)
