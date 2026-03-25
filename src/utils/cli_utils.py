@@ -18,5 +18,7 @@ def parse_cli_command(cli_command: str):
             command_type = PayloadType.TEXT
         case "i":
             command_type = PayloadType.IMAGE
+        case _:
+            command_type = PayloadType.TEXT
     
     return ParsedCLICommand(found_command.group(1), command_type, found_command.group(3))

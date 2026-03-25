@@ -9,4 +9,12 @@ class SendTextCommand(ICommand):
         self.payload_type = payload_type
 
     def execute(self, tcp_client: Client, encoder: Encoder):
-        tcp_client.send(self.msg, self.payload_type)
+        msg_to_send = self.msg
+
+        match self.msg:
+            case "plain":
+                msg_to_send = encoder.plain_buffer
+            case "encoded":
+                msg_to_send = encoder.encoded_buffer
+
+        tcp_client.send(msg_to_send, self.payload_type)

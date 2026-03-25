@@ -8,7 +8,7 @@ from payload import PayloadType
         [
             (
                 "/help",
-                ["help", None, None]
+                ["help", PayloadType.TEXT, None]
             ),
             (
                 "/help -s",
