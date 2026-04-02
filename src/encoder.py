@@ -1,20 +1,20 @@
 import utils.array_utils as array_utils
 
 class Encoder:
-    plain_buffer = ""
-    encoded_buffer = ""
+    plain_buffer: bytes = bytes()
+    encoded_buffer: bytes = bytes()
 
     def clear_plain_buffer(self):
-        self.plain_buffer = ""
+        self.plain_buffer = bytes()
 
     def clear_encoded_buffer(self):
-        self.encoded_buffer = ""
+        self.encoded_buffer = bytes()
 
-    def set_plain_buffer(self, text: str):
-        self.plain_buffer = text
+    def set_plain_buffer(self, bytes_text: bytes):
+        self.plain_buffer = bytes_text
 
-    def set_encoded_buffer(self, text: str):
-        self.encoded_buffer = text
+    def set_encoded_buffer(self, bytes_text: bytes):
+        self.encoded_buffer = bytes_text
 
     def encode_shift(self, shift: int):
         self.encoded_buffer = caesar_shift(self.plain_buffer, shift)
