@@ -18,9 +18,9 @@ import pytest
     ],
 )
 def test_encrypt(message: str, n: int, expected: str):
-    result = caesar_shift(message, n)
+    result = caesar_shift(message.encode("utf-32-be"), n)
 
-    assert result == expected
+    assert result.decode("utf-32-be") == expected
 
 @pytest.mark.parametrize(
     "message, n, expected",
@@ -38,6 +38,6 @@ def test_encrypt(message: str, n: int, expected: str):
     ],
 )
 def test_decrypt(message: str, n: int, expected: str):
-    result = caesar_shift(message, -n)
+    result = caesar_shift(message.encode("utf-32-be"), -n)
 
-    assert result == expected
+    assert result.decode("utf-32-be") == expected
