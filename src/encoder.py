@@ -16,19 +16,15 @@ class Encoder:
     def set_encoded_buffer(self, bytes_text: bytes):
         self.encoded_buffer = bytes_text
 
-    def encode_shift(self, shift: int):
-        self.encoded_buffer = caesar_shift(self.plain_buffer, shift)
-    
-    def decode_shift(self, shift: int):
-        self.plain_buffer = caesar_shift(self.encoded_buffer, -shift)
+def caesar_shift(encoded_string: bytes, shift: int):
+    result = bytearray()
 
-def caesar_shift(string: str, shift: int):
-    result = ""
-    for char in string:
-        shifted = chr(ord(char) + shift)
+    for i in range(0, len(encoded_string), 4):
+        shifted = int.from_bytes(encoded_string[i:i+4]) + shift
 
-        result += shifted
-    return result
+        result.extend(shifted.to_bytes(4, "big"))
+
+    return bytes(result)
 
 def xor(string, key):
     len_adjusted_key = array_utils.adjust_key_length(key, len(string))
