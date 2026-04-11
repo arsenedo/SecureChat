@@ -54,12 +54,18 @@ class CLIModel:
             ),
             CLICommand(
                 aliases = ["show"],
-                callback = lambda flag, user_input : self.set_and_execute_invoker(ShowCurrentBuffers(self.cli_view))
+                input_options = [InputOptionsList(["stringify"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(ShowCurrentBuffers(self.cli_view, user_input))
             ),
             CLICommand(
                 aliases = ["encode"],
                 input_options = [InputOptionsList(["shift"]), InputOptionsList(["k"])],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(CaesarShiftCommand(user_input, True))
+            ),
+            CLICommand(
+                aliases = ["decode"],
+                input_options = [InputOptionsList(["shift"]), InputOptionsList(["k"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(CaesarShiftCommand(user_input, False))
             )
         ]
     

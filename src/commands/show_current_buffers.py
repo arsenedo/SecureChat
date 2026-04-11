@@ -4,9 +4,14 @@ from encoder import Encoder
 from cli.cli_view import CLIView
 
 class ShowCurrentBuffers(ICommand):
-    def __init__(self, cli_view: CLIView):
+    def __init__(self, cli_view: CLIView, user_input: str):
         self.cli_view = cli_view
+        self.user_input: str = user_input
         
     def execute(self, tcp_client: Client, encoder: Encoder):
-        self.cli_view.print_string(f"Plain : {encoder.plain_buffer}")
-        self.cli_view.print_string(f"Encoded : {encoder.encoded_buffer}")
+        should_stringify = False
+        if self.user_input:
+            should_stringify = "stringify" in self.user_input.lower()
+
+        self.cli_view.print_string(f"Plain : {encoder.plain_buffer if not should_stringify else encoder.plain_buffer.decode()}")
+        self.cli_view.print_string(f"Encoded : {encoder.encoded_buffer if not should_stringify else encoder.encoded_buffer.decode()}")
