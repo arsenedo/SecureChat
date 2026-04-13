@@ -44,34 +44,29 @@ def xor(string, key):
 
     return xorBytes
 
-def vigenere_encode(string: str, key_string: str):
-    len_adjusted_key = array_utils.adjust_key_length(key_string, len(string))
+def vigenere_encode(str_bytes: bytes, key_bytes: bytes):
+    len_adjusted_key = array_utils.adjust_key_length(key_bytes, len(str_bytes))
 
-    string_chars = list(string)
-    key_string_chars = list(len_adjusted_key)
+    encrypted_bytes: bytearray = bytearray()
+    for i in range(0, len(str_bytes), 4):
+        int_char = int.from_bytes(str_bytes[i: i+4])
+        int_key = int.from_bytes(len_adjusted_key[i: i+4])
 
-    encode_tuple = zip(string_chars, key_string_chars)
+        int_encrypted = int_char + int_key
+        encrypted_bytes.extend(int_encrypted.to_bytes(4, "big"))
 
-    encrypted_string = ""
-    for char, key in encode_tuple:
-        encrypted_bytes = (ord(char) + ord(key))
+    return bytes(encrypted_bytes)
 
-        encrypted_string += chr(encrypted_bytes)
+def vigenere_decode(encoded_msg: bytes, key_bytes: bytes):
+    len_adjusted_key = array_utils.adjust_key_length(key_bytes, len(encoded_msg))
 
-    return encrypted_string
+    decrypted_bytes: bytearray = bytearray()
+    for i in range(0, len(encoded_msg), 4):
+        int_char = int.from_bytes(encoded_msg[i: i+4])
+        int_key = int.from_bytes(len_adjusted_key[i: i+4])
 
-def vigenere_decode(encoded_msg: str, key_string: str):
-    len_adjusted_key = array_utils.adjust_key_length(key_string, len(encoded_msg))
+        int_decrypted = int_char - int_key
 
-    msg_chars = list(encoded_msg)
-    key_string_chars = list(len_adjusted_key)
+        decrypted_bytes.extend(int_decrypted.to_bytes(4, "big"))
 
-    decode_tuple = zip(msg_chars, key_string_chars)
-
-    decrypted_string = ""
-    for char, key in decode_tuple:
-        decrypted_bytes = ord(char) - ord(key)
-
-        decrypted_string += chr(decrypted_bytes)
-
-    return decrypted_string
+    return decrypted_bytes
