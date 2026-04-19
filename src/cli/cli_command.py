@@ -24,15 +24,15 @@ class CLICommand:
         str_final = ""
 
         str_aliases = ", ".join(f"/{alias}" for alias in self.aliases)
-        if str_aliases is not "":
+        if str_aliases != "":
             str_final += str_aliases
 
         str_flags = ", ".join(f"-{flag}" for flag in self.flags)
-        if str_flags is not "":
+        if str_flags != "":
             str_final += " " + str_flags
 
         str_user_input = " ".join(input_option_list.to_string() for input_option_list in self.input_options)
-        if str_user_input is not "":
+        if str_user_input != "":
             str_final += " " + str_user_input 
 
         return str_final
