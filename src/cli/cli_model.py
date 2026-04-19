@@ -7,6 +7,7 @@ from commands.select_message_to_buffer import *
 from commands.set_message_to_buffer import *
 from commands.show_current_buffers import *
 from commands.caesar_shift_command import *
+from commands.vigenere_command import *
 import os
 
 
@@ -73,13 +74,13 @@ class CLIModel:
                 aliases = ["encode"],
                 sub_type = "vigenere",
                 input_options = [InputOptionsList(["key"])],
-                callback = lambda flag, user_input : print(f"Executing vigenere {user_input}")
+                callback = lambda flag, user_input : self.set_and_execute_invoker(VigenereCommand(user_input, True))
             ),
             CLICommand(
                 aliases = ["decode"],
                 sub_type = "vigenere",
                 input_options = [InputOptionsList(["key"])],
-                callback = lambda flag, user_input : print(f"Executing vigenere {user_input}")
+                callback = lambda flag, user_input : self.set_and_execute_invoker(VigenereCommand(user_input, False))
             )
         ]
     
