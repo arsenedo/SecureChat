@@ -16,11 +16,11 @@ class Encoder:
     def set_encoded_buffer(self, bytes_text: bytes):
         self.encoded_buffer = bytes_text
 
-def caesar_shift(encoded_string: bytes, shift: int):
+def caesar_shift(encoded_bytes: bytes, shift: int):
     result = bytearray()
 
-    for i in range(0, len(encoded_string), 4):
-        shifted = int.from_bytes(encoded_string[i:i+4]) + shift
+    for i in range(0, len(encoded_bytes), 4):
+        shifted = int.from_bytes(encoded_bytes[i:i+4]) + shift
 
         result.extend(shifted.to_bytes(4, "big"))
 
