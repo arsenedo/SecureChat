@@ -4,7 +4,7 @@ from payload import PayloadType
 
 def parse_cli_command(cli_command: str):
     # group 1 -> alias, group 2 -> flags, group 3 -> user_input
-    found_command = re.search("^\/(\w+)(?:\s*-(\w))?(?:\s*([\w\W]+))?$", cli_command)
+    found_command = re.search(r"^\/(\w+)(?:\s*-(\w))?(?:\s*([\w\W]+))?$", cli_command)
 
     # if doesn't contain a "/" at the start, count as text
     if not found_command:
@@ -20,5 +20,13 @@ def parse_cli_command(cli_command: str):
             command_type = PayloadType.IMAGE
         case _:
             command_type = PayloadType.TEXT
+
+    alias = found_command.group(1)
+    sub_type: str = None
+    user_input: str = found_command.group(3)
+    if (alias == "encode" or alias == "decode"):
+        split_input = user_input.split(" ", 1)
+        sub_type = split_input[0]
+        user_input = split_input[1]
     
-    return ParsedCLICommand(found_command.group(1), command_type, found_command.group(3))
+    return ParsedCLICommand(alias, command_type, user_input, sub_type)

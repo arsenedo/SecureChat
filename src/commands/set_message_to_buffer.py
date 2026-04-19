@@ -1,6 +1,7 @@
 from commands.command_invoker import ICommand
 from client import Client
 from encoder import Encoder
+from utils import bytes_utils
 
 class SetMessageToBuffer(ICommand):
     def __init__(self, user_input: str):
@@ -10,7 +11,7 @@ class SetMessageToBuffer(ICommand):
             raise Exception("Incorrect input format")
 
         self.buffer = split_input[0]
-        self.message = split_input[1]
+        self.message = bytes_utils.bytify_string(split_input[1])
 
     def execute(self, tcp_client, encoder):
         match self.buffer:

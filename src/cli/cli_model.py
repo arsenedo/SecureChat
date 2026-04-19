@@ -18,7 +18,7 @@ class CLIModel:
         view.print_header()
 
     def execute_parsed_command(self, parsed_command: ParsedCLICommand):
-        command = next((cli_command for cli_command in self.get_cli_commands() if parsed_command.command in cli_command.aliases), None)
+        command = next((cli_command for cli_command in self.get_cli_commands() if parsed_command.command in cli_command.aliases and parsed_command.sub_type == cli_command.sub_type), None)
 
         if not command:
             self.cli_view.print_string(f"Command {parsed_command.command} not found")
@@ -59,13 +59,27 @@ class CLIModel:
             ),
             CLICommand(
                 aliases = ["encode"],
-                input_options = [InputOptionsList(["shift"]), InputOptionsList(["k"])],
+                sub_type = "shift",
+                input_options = [InputOptionsList(["k"])],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(CaesarShiftCommand(user_input, True))
             ),
             CLICommand(
                 aliases = ["decode"],
-                input_options = [InputOptionsList(["shift"]), InputOptionsList(["k"])],
+                sub_type = "shift",
+                input_options = [InputOptionsList(["k"])],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(CaesarShiftCommand(user_input, False))
+            ),
+            CLICommand(
+                aliases = ["encode"],
+                sub_type = "vigenere",
+                input_options = [InputOptionsList(["key"])],
+                callback = lambda flag, user_input : print(f"Executing vigenere {user_input}")
+            ),
+            CLICommand(
+                aliases = ["decode"],
+                sub_type = "vigenere",
+                input_options = [InputOptionsList(["key"])],
+                callback = lambda flag, user_input : print(f"Executing vigenere {user_input}")
             )
         ]
     

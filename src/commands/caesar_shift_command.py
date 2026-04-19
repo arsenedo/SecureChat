@@ -6,7 +6,7 @@ from encoder import caesar_shift
 class CaesarShiftCommand(ICommand):
     def __init__(self, user_input: str, is_encode: bool):
         self.is_encode = is_encode
-        self.shift = int(user_input.split(" ")[1])
+        self.shift = int(user_input)
 
     
     def execute(self, tcp_client: Client, encoder: Encoder):
