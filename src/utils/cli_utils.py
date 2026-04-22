@@ -24,7 +24,7 @@ def parse_cli_command(cli_command: str):
     alias = found_command.group(1)
     sub_type: str = None
     user_input: str = found_command.group(3)
-    if (alias == "encode" or alias == "decode"):
+    if (alias == "encode" or alias == "decode" or alias == "dh"):
         split_input = user_input.split(" ", 1)
         sub_type = split_input[0]
         user_input = split_input[1]

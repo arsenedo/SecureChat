@@ -10,6 +10,7 @@ from commands.caesar_shift_command import *
 from commands.vigenere_command import *
 from commands.rsa_command import *
 from commands.hash_command import *
+import commands.diffie_hellman as difhel
 import os
 
 
@@ -93,6 +94,18 @@ class CLIModel:
             CLICommand(
                 aliases = ["hash"],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(HashCommand())
+            ),
+            CLICommand(
+                aliases = ["dh"],
+                sub_type = "halfkey",
+                input_options = [InputOptionsList(["mod"]), InputOptionsList(["gen"]), InputOptionsList(["private_key"])],
+                callback = lambda flag, user_input :self.set_and_execute_invoker(difhel.GenerateHalfKeyCommand(user_input, self.cli_view))
+            ),
+            CLICommand(
+                aliases = ["dh"],
+                sub_type = "secret",
+                input_options = [InputOptionsList(["mod"]), InputOptionsList(["private_key"]), InputOptionsList(["partner_half_key"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(difhel.CalculateDifHelSecretCommand(user_input, self.cli_view))
             )
         ]
     
