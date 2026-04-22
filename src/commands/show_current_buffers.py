@@ -13,5 +13,5 @@ class ShowCurrentBuffers(ICommand):
         if self.user_input:
             should_stringify = "stringify" in self.user_input.lower()
 
-        self.cli_view.print_string(f"Plain : {encoder.plain_buffer if not should_stringify else encoder.plain_buffer.decode()}")
-        self.cli_view.print_string(f"Encoded : {encoder.encoded_buffer if not should_stringify else encoder.encoded_buffer.decode()}")
+        self.cli_view.print_string(f"Plain : {encoder.plain_buffer if not should_stringify else encoder.plain_buffer.decode("utf-8", "replace")}")
+        self.cli_view.print_string(f"Encoded : {encoder.encoded_buffer if not should_stringify else encoder.encoded_buffer.decode("utf-8", "replace")}")

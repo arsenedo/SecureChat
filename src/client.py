@@ -16,7 +16,7 @@ class Client:
         self.s.send(payload.to_byte_string())
 
     def receive(self):
-        payload_bytes = self.s.recv(4096)
+        payload_bytes = self.s.recv(999999)
 
         payload: Payload = PayloadBuilder.parse(payload_bytes)
 
@@ -26,3 +26,6 @@ class Client:
 
     def close(self):
         self.s.close()
+
+    def get_last_message(self) -> tuple[int, bytes]:
+        return (len(self.payload_history), self.payload_history[-1].message)

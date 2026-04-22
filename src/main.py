@@ -9,10 +9,12 @@ from commands.command_invoker import CommandInvoker
 IP_address = "vlbelintrocrypto.hevs.ch"
 port = 6000
 
-def listen_to_server(c: client.Client):
+def listen_to_server(c: client.Client, cli: cli_handler.CLIHandler):
     while True:
         payload = c.receive()
-        print(payload.message.decode("utf-8"))
+        
+        last_msg: tuple[int, bytes] = c.get_last_message()
+        cli.model.cli_view.print_string(f"{last_msg[0]}: {last_msg[1].decode("utf-8", "replace")}")
 
 def main():
     c = client.Client()
@@ -28,7 +30,7 @@ def main():
     print(f"[+] Connected successfully")
     print(f"Connected to {IP_address}:{port}")
 
-    thread = Thread(target = listen_to_server, kwargs = {"c": c})
+    thread = Thread(target = listen_to_server, kwargs = {"c": c, "cli": cli})
 
     thread.start()
 

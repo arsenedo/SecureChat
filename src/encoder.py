@@ -69,4 +69,15 @@ def vigenere_decode(encoded_msg: bytes, key_bytes: bytes):
 
         decrypted_bytes.extend(int_decrypted.to_bytes(4, "big"))
 
-    return decrypted_bytes
+    return bytes(decrypted_bytes)
+
+
+def rsa_encode(encoded_msg: bytes, n: int, e: int) -> bytes:
+    encrypted_bytes: bytearray = bytearray()
+    for i in range(0, len(encoded_msg), 4):
+        int_char: int = int.from_bytes(encoded_msg[i: i + 4])
+        int_encoded: int = (int_char ** e) % n
+
+        encrypted_bytes.extend(int_encoded.to_bytes(4, "big"))
+
+    return bytes(encrypted_bytes)

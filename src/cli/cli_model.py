@@ -8,6 +8,8 @@ from commands.set_message_to_buffer import *
 from commands.show_current_buffers import *
 from commands.caesar_shift_command import *
 from commands.vigenere_command import *
+from commands.rsa_command import *
+from commands.hash_command import *
 import os
 
 
@@ -81,6 +83,16 @@ class CLIModel:
                 sub_type = "vigenere",
                 input_options = [InputOptionsList(["key"])],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(VigenereCommand(user_input, False))
+            ),
+            CLICommand(
+                aliases = ["encode"],
+                sub_type = "rsa",
+                input_options = [InputOptionsList(["pub"]), InputOptionsList(["mod"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(RSACommand(user_input, True))
+            ),
+            CLICommand(
+                aliases = ["hash"],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(HashCommand())
             )
         ]
     
