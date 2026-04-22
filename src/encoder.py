@@ -81,3 +81,10 @@ def rsa_encode(encoded_msg: bytes, n: int, e: int) -> bytes:
         encrypted_bytes.extend(int_encoded.to_bytes(4, "big"))
 
     return bytes(encrypted_bytes)
+
+
+def difhel_half_key(mod: int, gen: int, private_key: int):
+    return (gen ** private_key) % mod
+
+def difhel_secret(mod: int, private_key: int, partner_half_key: int):
+    return (partner_half_key ** private_key) % mod
