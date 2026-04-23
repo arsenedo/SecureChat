@@ -72,16 +72,28 @@ def vigenere_decode(encoded_msg: bytes, key_bytes: bytes):
     return bytes(decrypted_bytes)
 
 
-def rsa_encode(encoded_msg: bytes, n: int, e: int) -> bytes:
+def rsa_encode(bytes_msg: bytes, n: int, e: int) -> bytes:
     encrypted_bytes: bytearray = bytearray()
-    for i in range(0, len(encoded_msg), 4):
-        int_char: int = int.from_bytes(encoded_msg[i: i + 4])
+    for i in range(0, len(bytes_msg), 4):
+        int_char: int = int.from_bytes(bytes_msg[i: i + 4])
         int_encoded: int = (int_char ** e) % n
 
         encrypted_bytes.extend(int_encoded.to_bytes(4, "big"))
 
     return bytes(encrypted_bytes)
 
+# test for N = 259, e = 5 and d = 173
+def rsa_decode(encoded_msg: bytes, n: int, d: int) -> bytes :
+    encoded_chars_list: list[str] = encoded_msg.decode("utf-32-be").split(" ")
+
+    decrypted_bytes: bytearray = bytearray()
+    for encoded_char in encoded_chars_list:
+        int_char: int = int(encoded_char)
+        int_decoded: int = (int_char ** d) % n
+
+        decrypted_bytes.extend(int_decoded.to_bytes(4, "big"))
+
+    return bytes(decrypted_bytes)
 
 def difhel_half_key(mod: int, gen: int, private_key: int):
     return (gen ** private_key) % mod

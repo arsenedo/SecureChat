@@ -92,6 +92,12 @@ class CLIModel:
                 callback = lambda flag, user_input : self.set_and_execute_invoker(RSACommand(user_input, True))
             ),
             CLICommand(
+                aliases = ["decode"],
+                sub_type = "rsa",
+                input_options = [InputOptionsList(["priv"]), InputOptionsList(["mod"])],
+                callback = lambda flag, user_input : self.set_and_execute_invoker(RSACommand(user_input, False))
+            ),
+            CLICommand(
                 aliases = ["hash"],
                 callback = lambda flag, user_input : self.set_and_execute_invoker(HashCommand())
             ),

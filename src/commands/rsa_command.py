@@ -1,6 +1,6 @@
 from commands.command_invoker import ICommand
 from client import Client
-from encoder import Encoder, rsa_encode
+from encoder import Encoder, rsa_encode, rsa_decode
 
 class RSACommand(ICommand):
     def __init__(self, user_input: str, is_encode: bool):
@@ -18,3 +18,9 @@ class RSACommand(ICommand):
                     self.mod,
                     self.key
                 ))
+        else:
+            encoder.set_encoded_buffer(rsa_decode(
+                encoder.plain_buffer,
+                self.mod,
+                self.key
+            ))
