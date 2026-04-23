@@ -16,9 +16,9 @@ import encoder, pytest
         ]
 )
 def test_vigenere_encode(string, key, expected):
-    encoded_string = encoder.vigenere_encode(string, key)
+    encoded_string = encoder.vigenere_encode(string.encode("utf-32-be"), key.encode("utf-32-be"))
 
-    assert(encoded_string == expected)
+    assert(encoded_string == expected.encode("utf-32-be"))
 
 
 @pytest.mark.parametrize(
@@ -37,6 +37,6 @@ def test_vigenere_encode(string, key, expected):
         ]
 )
 def test_vigenere_decode(string, key, expected):
-    decoded_string = encoder.vigenere_decode(string, key)
+    decoded_string = encoder.vigenere_decode(string.encode("utf-32-be"), key.encode("utf-32-be"))
 
-    assert(decoded_string == expected)
+    assert(decoded_string == expected.encode("utf-32-be"))

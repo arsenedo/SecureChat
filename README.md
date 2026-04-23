@@ -48,7 +48,18 @@ Port: 6000
         * Each pixel consists of 3 consecutive bytes(RGB-RGB-RGB)
 
 
+# Implementation Notes
+## CLI user input
+* The user input can have multiple fields and each field might contain multiple options.
+* The fields might be optional
+
+## CLI encode
+* Encode allows to encode using multiple encoding algorithms
+* All start with encode. current parser finds command by alias
+* Create A CLI Command?
+
 # Diagrams
+## TCP Client and payload Building
 ```mermaid
 ---
 config:
@@ -81,4 +92,54 @@ direction TB
     }
 
     Client --> PayloadBuilder
+```
+
+## CLI MVC and Command Pattern
+The command pattern is used because this app will have a CLI and a GUI. Both do the exact same thing so we need to centralize the logic inside of commands
+
+The MVC pattern was simplified to a MV and a base handler which parses the command and passes the parsed information to the model. Which in turns executes the desired command
+```mermaid
+---
+config:
+  layout: dagre
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+direction BT
+    class Main {
+    }
+
+    class CommandInvoker {
+	    - command: Command
+	    + set_command(command: Command)
+	    + execute_command()
+    }
+
+    class Command {
+    }
+
+    class CLIHandler {
+        - cli_model: CLIModel
+        + execute_cli_command(cli_command: str)
+    }
+
+    class CLIView {
+	    + print_header()
+	    + print_available_commands(cli_commands: list[CLICommand])
+    }
+
+    class CLIModel {
+	    - cli_view: CLIView
+	    - command_invoker: CommandInvoker
+	    + CLIModel(command_invoker: CommandInvoker)
+        + get_available_commands() list[CLICommand]
+    }
+
+    CLIHandler --> CLIModel
+    Main --> CLIHandler
+    Main --> CommandInvoker
+    CLIModel --> CommandInvoker
+    CLIModel --> CLIView
+    CommandInvoker --> Command
 ```
