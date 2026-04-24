@@ -20,7 +20,7 @@ class RSACommand(ICommand):
                 ))
         else:
             encoder.set_encoded_buffer(rsa_decode(
-                encoder.plain_buffer,
+                encoder.encoded_buffer,
                 self.mod,
                 self.key
             ))

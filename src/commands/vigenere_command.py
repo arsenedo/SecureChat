@@ -17,5 +17,5 @@ class VigenereCommand(ICommand):
         else:
             encoder.set_plain_buffer(vigenere_decode(
                 encoder.encoded_buffer,
-                -self.key
+                self.key
             ))
