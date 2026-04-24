@@ -41,7 +41,7 @@ def main():
 
     cli = cli_handler.CLIHandler(command_invoker)
     cli.model.cli_view.print_string(f"[+] Connecting to {IP_address}:{port}")
-    #c.connect(IP_address, port)
+    c.connect(IP_address, port)
     cli.model.cli_view.print_string(f"[+] Connected successfully")
     cli.model.cli_view.print_string(f"Connected to {IP_address}:{port}")
 
