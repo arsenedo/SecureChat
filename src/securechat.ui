@@ -134,13 +134,6 @@ max-width: 200px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>Image</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <spacer name="spInputLeft">
            <property name="orientation">
             <enum>Qt::Orientation::Horizontal</enum>
