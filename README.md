@@ -47,16 +47,12 @@ Port: 6000
         * Pixels are stored row by row (y-axis first, then x-axis)
         * Each pixel consists of 3 consecutive bytes(RGB-RGB-RGB)
 
+# Using the app
+Run the app using `uv run src/main.py`
 
-# Implementation Notes
-## CLI user input
-* The user input can have multiple fields and each field might contain multiple options.
-* The fields might be optional
+You can use the CLI or the GUI to interact with the server
 
-## CLI encode
-* Encode allows to encode using multiple encoding algorithms
-* All start with encode. current parser finds command by alias
-* Create A CLI Command?
+Run tests using `uv run pytest`
 
 # Diagrams
 ## TCP Client and payload Building
