@@ -603,14 +603,14 @@ max-width: 200px;</string>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_4">
+          <widget class="QPushButton" name="pbSendPlain">
            <property name="text">
             <string>Send Plain</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="btnSendEncoded">
+          <widget class="QPushButton" name="pbSendEncoded">
            <property name="text">
             <string>Send Encoded</string>
            </property>

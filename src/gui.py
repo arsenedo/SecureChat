@@ -42,9 +42,14 @@ class MainWindow(QMainWindow):
     def setupListeners(self):
         btnSendText: QPushButton = self.btnSendText
         btnSelectMsgToBuffer: QPushButton = self.selectMsgToBuffer
+        pbSendPlain: QPushButton = self.pbSendPlain
+        pbSendEncoded: QPushButton = self.pbSendEncoded
 
         btnSendText.clicked.connect(self.onSendPlainTextClick)
         btnSelectMsgToBuffer.clicked.connect(self.onSelectMsgToBufferClick)
+
+        pbSendPlain.clicked.connect(lambda: self.set_and_execute_command(send_text_command.SendTextCommand("plain", self.getCurrentPayloadType())))
+        pbSendEncoded.clicked.connect(lambda: self.set_and_execute_command(send_text_command.SendTextCommand("encoded", self.getCurrentPayloadType())))
 
     def appendToMessageDisplay(self, msg: str):
         messageDisplay: QLabel = self.messageDisplay
